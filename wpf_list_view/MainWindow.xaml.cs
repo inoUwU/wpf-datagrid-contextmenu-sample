@@ -1,5 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,7 +16,8 @@ namespace wpf_list_view
     {
         public List<ListValue> ListValues { get; private set; } = [];
 
-        public IEnumerable<PayType> PayTypes { get; private set; } = Enum.GetValues<PayType>();
+        public ObservableCollection<string> PayTypes { get; private set; } =
+            new ObservableCollection<string>(EnumHelper.GetEnumDisplayNames<PayType>());
 
         public MainWindow()
         {
@@ -101,7 +106,9 @@ namespace wpf_list_view
 
     public enum PayType
     {
+        [Display(Name = "カード")]
         Card,
+        [Display(Name = "キャッシュ")]
         Cache
     }
 
